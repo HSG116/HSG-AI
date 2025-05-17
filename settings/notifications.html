@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات الإشعارات - HSG AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6e00ff;
+            --primary-light: #8d3aff;
+            --secondary: #ff00e4;
+            --secondary-light: #ff4dec;
+            --dark: #0a041a;
+            --dark-light: #1a0c3a;
+            --light: #f0f0ff;
+            --light-dark: #d0d0e0;
+            --accent: #00f7ff;
+            --accent-dark: #00c4cc;
+            --error: #ff3860;
+            --success: #00d1b2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .notifications-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .notifications-header h1 {
+            color: var(--accent);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .notifications-header p {
+            color: var(--light-dark);
+            font-size: 1.1em;
+        }
+
+        .notifications-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-option:last-child {
+            border-bottom: none;
+        }
+
+        .option-info {
+            flex: 1;
+        }
+
+        .option-title {
+            color: var(--light);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .option-description {
+            color: var(--light-dark);
+            font-size: 0.9em;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--dark-light);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 0, 255, 0.3);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--light-dark);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--success);
+            color: white;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .notification.error {
+            background: var(--error);
+        }
+
+        .notification i {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">
+            <i class="fas fa-arrow-right"></i>
+            العودة للصفحة الرئيسية
+        </a>
+
+        <div class="notifications-header">
+            <h1>إعدادات الإشعارات</h1>
+            <p>تحكم في كيفية استلام الإشعارات</p>
+        </div>
+
+        <div class="notifications-section">
+            <div class="notification-option">
+                <div class="option-info">
+                    <div class="option-title">إشعارات الرسائل</div>
+                    <div class="option-description">استلام إشعارات عند وصول رسائل جديدة</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="message-notifications" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="notification-option">
+                <div class="option-info">
+                    <div class="option-title">إشعارات النظام</div>
+                    <div class="option-description">استلام إشعارات عن تحديثات النظام</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="system-notifications" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="notification-option">
+                <div class="option-info">
+                    <div class="option-title">إشعارات البريد الإلكتروني</div>
+                    <div class="option-description">استلام إشعارات عبر البريد الإلكتروني</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="email-notifications">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="notification-option">
+                <div class="option-info">
+                    <div class="option-title">إشعارات التحديثات</div>
+                    <div class="option-description">استلام إشعارات عن التحديثات الجديدة</div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="update-notifications" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <button class="save-btn" id="save-notifications">حفظ الإعدادات</button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">تم حفظ الإعدادات بنجاح</span>
+    </div>
+
+    <script>
+        // تحميل إعدادات الإشعارات المحفوظة
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedSettings = sessionStorage.getItem('notificationSettings');
+            if (savedSettings) {
+                try {
+                    const settings = JSON.parse(savedSettings);
+                    document.getElementById('message-notifications').checked = settings.messageNotifications;
+                    document.getElementById('system-notifications').checked = settings.systemNotifications;
+                    document.getElementById('email-notifications').checked = settings.emailNotifications;
+                    document.getElementById('update-notifications').checked = settings.updateNotifications;
+                } catch (e) {
+                    console.error('Error parsing notification settings:', e);
+                }
+            }
+        });
+
+        // حفظ إعدادات الإشعارات
+        document.getElementById('save-notifications').addEventListener('click', function() {
+            const settings = {
+                messageNotifications: document.getElementById('message-notifications').checked,
+                systemNotifications: document.getElementById('system-notifications').checked,
+                emailNotifications: document.getElementById('email-notifications').checked,
+                updateNotifications: document.getElementById('update-notifications').checked
+            };
+            
+            sessionStorage.setItem('notificationSettings', JSON.stringify(settings));
+            showNotification('تم حفظ الإعدادات بنجاح');
+        });
+
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notification.className = 'notification' + (isError ? ' error' : '');
+            notificationText.textContent = message;
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 
